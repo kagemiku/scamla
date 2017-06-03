@@ -9,6 +9,6 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file(".")).
   settings(
     commonSettings,
-    name := "Hello",
+    name := "scamla",
     libraryDependencies += scalaTest % Test
   )
