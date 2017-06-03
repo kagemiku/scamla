@@ -10,5 +10,10 @@ lazy val root = (project in file(".")).
   settings(
     commonSettings,
     name := "scamla",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies ++= Seq(
+      scalaTest % Test,
+      breeze,
+      breeze_natives,
+      breeze_viz
+    )
   )
