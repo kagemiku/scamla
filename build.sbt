@@ -9,6 +9,11 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file(".")).
   settings(
     commonSettings,
-    name := "Hello",
-    libraryDependencies += scalaTest % Test
+    name := "scamla",
+    libraryDependencies ++= Seq(
+      scalaTest % Test,
+      breeze,
+      breeze_natives,
+      breeze_viz
+    )
   )
