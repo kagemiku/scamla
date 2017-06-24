@@ -8,7 +8,7 @@ object SimpleLinearRegression {
 
   type Phi = (Double) => Double
 
-  def calc(x: DenseVector[Double], y: DenseVector[Double], phis: List[Phi]): DenseVector[Double] = {
+  def calc(x: DenseVector[Double], y: DenseVector[Double], phis: List[Phi], lambda: Double): DenseVector[Double] = {
     val n = x.size
     val m = phis.size
 
@@ -17,7 +17,8 @@ object SimpleLinearRegression {
       designM(i, ::) := DenseVector(phis.map( phi => phi(x(i)) ):_*).t
     }
 
-    val w = inv(designM.t * designM) * designM.t * y
+    val regTerm = lambda * DenseMatrix.eye[Double](m)
+    val w = inv(regTerm + designM.t * designM) * designM.t * y
     w
   }
 
@@ -47,7 +48,8 @@ object SimpleLinearRegressionExample {
       { (x: Double) => math.pow(x, 2) },
     )
 
-    val w = SimpleLinearRegression.calc(x, y, phis)
+    val lambda = 1.0
+    val w = SimpleLinearRegression.calc(x, y, phis, lambda)
     println(w)
 
     val res = x.map { x =>
