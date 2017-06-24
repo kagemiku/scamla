@@ -13,8 +13,8 @@ object SimpleLinearRegression {
     val m = phis.size
 
     val designM = DenseMatrix.zeros[Double](n, m)
-    for ( i <- 0 until n ) {
-      designM(i, ::) := DenseVector(phis.map( phi => phi(x(i)) ):_*).t
+    for (i <- 0 until n) {
+      designM(i, ::) := DenseVector(phis.map(phi => phi(x(i))): _*).t
     }
 
     val regTerm = lambda * DenseMatrix.eye[Double](m)
@@ -40,12 +40,16 @@ object SimpleLinearRegressionExample {
   }
 
   def main(args: Array[String]): Unit = {
-    val x = DenseVector((-7.0 to 7.0 by 0.01):_*)
-    val y = x.map( x => this.targatFunc(x) )
+    val x = DenseVector((-7.0 to 7.0 by 0.01): _*)
+    val y = x.map(x => this.targatFunc(x))
     val phis = List(
-      { (x: Double) => 1.0 },
-      { (x: Double) => x },
-      { (x: Double) => math.pow(x, 2) },
+      { (x: Double) =>
+        1.0
+      }, { (x: Double) =>
+        x
+      }, { (x: Double) =>
+        math.pow(x, 2)
+      }
     )
 
     val lambda = 1.0
@@ -53,7 +57,7 @@ object SimpleLinearRegressionExample {
     println(w)
 
     val res = x.map { x =>
-      w.t * DenseVector(phis.map( phi => phi(x)):_*)
+      w.t * DenseVector(phis.map(phi => phi(x)): _*)
     }
 
     this.plotGraph(x, y, res)
